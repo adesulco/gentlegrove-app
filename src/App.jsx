@@ -7,7 +7,7 @@ import { useScreenTimer } from './hooks/useScreenTimer';
 import WelcomeScreen from './components/auth/WelcomeScreen';
 import SignInScreen from './components/auth/SignInScreen';
 import RegisterScreen from './components/auth/RegisterScreen';
-import ProfileSelector from './components/auth/ProfleSelector';
+import ProfileSelector from './components/auth/ProfileSelector';
 
 // Onboarding Components
 import NameStep from './components/onboarding/NameStep';
