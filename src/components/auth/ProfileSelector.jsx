@@ -98,9 +98,10 @@ export default function ProfileSelector({
       </h2>
       <p
         style={{
-          color: "#777",
+          color: "#666",
           fontSize: 17,
-          marginBottom: 28
+          marginBottom: 28,
+          fontFamily: "'Inter', sans-serif"
         }}
       >
         {children.length > 0
