@@ -1,13 +1,15 @@
 import React from 'react';
 
 /**
- * QuestPreview - Preview screen shown before starting a quest
- * Displays biome information and quest description based on difficulty phase
+ * QuestPreview - Pre-quest screen with social story element
+ * Explains what will happen during the quest so the child knows what to expect.
+ * Uses predictable structure: what you will do, how many questions, what happens.
+ * Per audit: "Digital Social Stories" — visual scripts before new tasks.
  *
  * Props:
- * - biome (object): Biome object with id, emoji, name, skill, color
- * - phase (string): Difficulty phase - 'seedlings', 'explorers', or 'navigators'
- * - onStart (function): Callback when "Start Quest!" button is clicked
+ * - biome (object): Biome with id, emoji, name, skill, color
+ * - phase (string): 'seedlings', 'explorers', or 'navigators'
+ * - onStart (function): Callback for Start Quest button
  */
 export default function QuestPreview({ biome, phase, onStart }) {
   const descriptions = {
@@ -48,56 +50,107 @@ export default function QuestPreview({ biome, phase, onStart }) {
     }
   };
 
+  // Social story: what to expect (predictability reduces anxiety)
+  const expectations = {
+    communication: 'You will see words and pick the best match. Take your time!',
+    harmony: 'You will look at feelings and choose what fits. There are no wrong tries, just learning!',
+    rhythm: 'You will explore how your body feels with different emotions. Go at your own pace!',
+    puzzle: 'You will see a pattern and pick what comes next. Look carefully!',
+    home: 'You will put steps in the right order. Think about what you do each day!',
+    numbers: 'You will work with numbers and pick answers. You can do this!',
+    alphabet: 'You will explore letters and words. Every try helps you learn!'
+  };
+
   const desc = descriptions[biome.id]?.[phase] || 'A fun learning quest awaits!';
+  const expectation = expectations[biome.id] || 'Take your time and have fun!';
 
   return (
     <div style={{
       textAlign: 'center',
-      padding: 32,
+      padding: 28,
       animation: 'fadeIn 0.4s ease'
     }}>
-      <div style={{ fontSize: 64, marginBottom: 16 }}>{biome.emoji}</div>
+      <div style={{ fontSize: 64, marginBottom: 14 }}>{biome.emoji}</div>
       <h2 style={{
         color: '#2B579A',
-        fontSize: 24,
-        margin: '0 0 8px'
+        fontSize: 26,
+        margin: '0 0 6px',
+        fontFamily: "'Nunito', sans-serif",
+        fontWeight: 800
       }}>{biome.name}</h2>
       <div style={{
-        fontSize: 16,
-        color: '#888',
-        marginBottom: 8
+        fontSize: 15,
+        color: '#666',
+        marginBottom: 16,
+        fontFamily: "'Inter', sans-serif"
       }}>{biome.skill}</div>
+
+      {/* Quest description card */}
       <div style={{
         background: '#F0F7FF',
-        borderRadius: 16,
-        padding: 20,
-        marginBottom: 24,
+        borderRadius: 18,
+        padding: 22,
+        marginBottom: 16,
         maxWidth: 400,
-        margin: '0 auto 24px'
+        margin: '0 auto 16px',
+        border: '1px solid #E8F4FD'
       }}>
         <div style={{
           fontSize: 15,
-          color: '#555',
+          color: '#666',
           fontWeight: 600,
-          marginBottom: 8
+          marginBottom: 8,
+          fontFamily: "'Inter', sans-serif"
         }}>In this quest, you will...</div>
         <div style={{
-          fontSize: 18,
+          fontSize: 19,
           color: '#2B579A',
-          fontWeight: 700
+          fontWeight: 700,
+          fontFamily: "'Nunito', sans-serif",
+          lineHeight: 1.4
         }}>{desc}</div>
       </div>
+
+      {/* Social story: What to expect */}
+      <div style={{
+        background: '#FEFCE8',
+        borderRadius: 16,
+        padding: 16,
+        marginBottom: 24,
+        maxWidth: 400,
+        margin: '0 auto 24px',
+        border: '1px solid #FDE68A'
+      }}>
+        <div style={{
+          fontSize: 13,
+          color: '#92400E',
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: 0.5,
+          marginBottom: 6
+        }}>What to expect</div>
+        <div style={{
+          fontSize: 15,
+          color: '#5D4037',
+          lineHeight: 1.5,
+          fontFamily: "'Inter', sans-serif"
+        }}>{expectation}</div>
+      </div>
+
       <button onClick={onStart}
         style={{
-          padding: '16px 48px',
+          padding: '18px 52px',
           borderRadius: 24,
           border: 'none',
           background: biome.color,
           color: 'white',
-          fontSize: 20,
+          fontSize: 21,
           fontWeight: 700,
           cursor: 'pointer',
-          boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+          boxShadow: '0 4px 15px rgba(0,0,0,0.12)',
+          fontFamily: "'Nunito', sans-serif",
+          minHeight: 56,
+          transition: 'all 0.2s ease'
         }}>
         Start Quest!
       </button>
