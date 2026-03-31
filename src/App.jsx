@@ -430,6 +430,7 @@ function AppContent() {
           onEnter={handleOnboardingComplete}
           theme={currentTheme}
         />
+      );
     }
   }
 
