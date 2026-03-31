@@ -3,13 +3,14 @@ import { BRIDGE_PROMPTS } from './data';
 
 /**
  * BridgePrompt - Offline adventure suggestion with fast typewriter effect
- * Shows a random bridge prompt for the biome with characters appearing quickly.
+ * Shows a random bridge prompt for the biome.
  * Can be embedded in quest complete screen (set embedded=true to hide button).
+ * Brand colors: Warm Amber accents, Soft Brown text.
  *
  * Props:
  * - biomeId (string): ID of the biome to get prompt for
  * - onContinue (function): Callback when "Back to Treehouse" button is clicked
- * - embedded (boolean): If true, hides the "Back to Treehouse" button (parent handles nav)
+ * - embedded (boolean): If true, hides the "Back to Treehouse" button
  */
 export default function BridgePrompt({ biomeId, onContinue, embedded = false }) {
   const prompts = BRIDGE_PROMPTS[biomeId] || BRIDGE_PROMPTS.harmony;
@@ -18,7 +19,6 @@ export default function BridgePrompt({ biomeId, onContinue, embedded = false }) 
   const fullText = prompt.steps || '';
   const isTyping = visibleChars < fullText.length;
 
-  // Faster typewriter: 8ms per char instead of 30ms
   useEffect(() => {
     if (visibleChars < fullText.length) {
       const timer = setTimeout(() => setVisibleChars((v) => v + 1), 8);
@@ -29,7 +29,7 @@ export default function BridgePrompt({ biomeId, onContinue, embedded = false }) 
   return (
     <div style={{
       textAlign: 'center',
-      padding: 24,
+      padding: 22,
       background: '#FEFCE8',
       borderRadius: 20,
       margin: '16px 0',
@@ -37,20 +37,22 @@ export default function BridgePrompt({ biomeId, onContinue, embedded = false }) 
       animation: 'slideUp 0.4s ease'
     }}>
       <div style={{
-        fontSize: 15,
-        color: '#92400E',
+        fontSize: 14,
+        color: '#D4943A',
         fontWeight: 700,
         textTransform: 'uppercase',
         letterSpacing: 1,
-        marginBottom: 8
+        marginBottom: 8,
+        fontFamily: "'Nunito', sans-serif"
       }}>
-        ⭐ Offline Adventure
+        Try This at Home
       </div>
       {prompt.title && <div style={{
         fontSize: 20,
-        color: '#78350F',
+        color: '#8B5E3C',
         fontWeight: 800,
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: "'Nunito', sans-serif"
       }}>{prompt.title}</div>}
       <div style={{
         fontSize: 16,
@@ -61,24 +63,26 @@ export default function BridgePrompt({ biomeId, onContinue, embedded = false }) 
         maxWidth: 380,
         margin: '0 auto 16px',
         textAlign: 'left',
-        minHeight: 60
+        minHeight: 60,
+        fontFamily: "'Inter', sans-serif"
       }}>
         {fullText.substring(0, visibleChars)}
-        {isTyping && <span style={{ animation: 'pulse 1s infinite' }}>▌</span>}
+        {isTyping && <span style={{ animation: 'pulse 1s infinite', color: '#D4943A' }}>▌</span>}
       </div>
-      {/* Show "Back to Treehouse" only when not embedded and typing is done */}
       {!embedded && !isTyping && (
         <button onClick={onContinue}
           style={{
             padding: '14px 36px',
-            borderRadius: 20,
+            borderRadius: 22,
             border: 'none',
-            background: '#F59E0B',
+            background: '#D4943A',
             color: 'white',
             fontSize: 17,
             fontWeight: 700,
             cursor: 'pointer',
-            animation: 'fadeIn 0.5s ease'
+            animation: 'fadeIn 0.5s ease',
+            fontFamily: "'Nunito', sans-serif",
+            minHeight: 48
           }}>
           Back to Treehouse
         </button>
@@ -90,10 +94,12 @@ export default function BridgePrompt({ biomeId, onContinue, embedded = false }) 
             borderRadius: 16,
             border: '1px solid #FDE68A',
             background: 'transparent',
-            color: '#92400E',
+            color: '#D4943A',
             fontSize: 14,
             fontWeight: 600,
-            cursor: 'pointer'
+            cursor: 'pointer',
+            fontFamily: "'Inter', sans-serif",
+            minHeight: 44
           }}>
           Show all
         </button>
