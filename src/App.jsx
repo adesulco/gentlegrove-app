@@ -7,7 +7,7 @@ import { useScreenTimer } from './hooks/useScreenTimer';
 import WelcomeScreen from './components/auth/WelcomeScreen';
 import SignInScreen from './components/auth/SignInScreen';
 import RegisterScreen from './components/auth/RegisterScreen';
-import ProfileSelector from './components/auth/ProfileSelector';
+import ProfileSelector from './components/auth/ProfleSelector';
 
 // Onboarding Components
 import NameStep from './components/onboarding/NameStep';
@@ -425,13 +425,11 @@ function AppContent() {
     if (onboardStep === 3) {
       return (
         <WelcomeToTreehouse
-          playerName={playerName}
+          companion={companion}
           companionName={companionName}
-          companionEmoji={companion?.emoji || 'ð¾'}
-          onContinue={handleOnboardingComplete}
+          onEnter={handleOnboardingComplete}
           theme={currentTheme}
         />
-      );
     }
   }
 
