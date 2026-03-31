@@ -638,9 +638,9 @@ function AppContent() {
           totalXp={totalXp}
           level={level}
           stars={stars}
-          biomesPlayed={biomesPlayed}
+          biomesPlayed={new Set(biomesPlayed)}
           biomeStars={biomeStars}
-          earnedBadges={earnedBadges}
+          earnedBadges={new Set(earnedBadges)}
           onStartQuest={handleStartQuest}
           onShowBadges={() => setShowBadgesPanel(true)}
           onChangePlayer={handleChangePlayer}
@@ -691,7 +691,7 @@ function AppContent() {
 
         {showBadgesPanel && (
           <BadgesPanel
-            earnedBadges={earnedBadges}
+            earnedBadges={new Set(earnedBadges)}
             onClose={() => setShowBadgesPanel(false)}
           />
         )}
