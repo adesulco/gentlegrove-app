@@ -37,13 +37,13 @@ import PatternGame from './components/games/PatternGame';
 import RoutineGame from './components/games/RoutineGame';
 
 // Data
-import { COMPANIONS } from './data';
+// COMPANIONS import removed - companion selection now handled in CompanionStep
 import { BADGES } from './components/shared/data';
 
 const THEMES = {
   cool: { accent: '#2B579A', bg: '#F0F7FF' },
   warm: { accent: '#8B4513', bg: '#FFF8F0' },
-  neutral: { accent: '#556B7A', bg: '#F5F5F3' },
+  neutral: { accent: '#555B7A', bg: '#F5F5F3' },
 };
 
 /**
@@ -232,7 +232,7 @@ function AppContent() {
       phase,
       onComplete: handleQuestComplete,
       settings,
-      companionEmoji: companion?.emoji || '🐾',
+      companionEmoji: companion?.emoji || 'ð¾',
       companionName,
     };
 
@@ -262,12 +262,7 @@ function AppContent() {
   const handleWelcomeLogin = () => setLoginMode('signin');
   const handleWelcomeRegister = () => setLoginMode('register');
   const handleWelcomeGuest = () => {
-    // Set up guest profile
-    setPlayerName('Guest');
-    setPhase('seedlings');
-    const guestCompanion = COMPANIONS[0];
-    setCompanion(guestCompanion);
-    setCompanionName(guestCompanion.name);
+    // Start guest onboarding - let the child enter their name and pick age group
     setScreen('onboarding');
     setOnboardStep(0);
   };
@@ -409,12 +404,20 @@ function AppContent() {
       return <NameStep onSubmit={handleNameSubmit} theme={currentTheme} />;
     }
     if (onboardStep === 1) {
-      return <AgeGroupStep onSubmit={handleAgeSubmit} theme={currentTheme} />;
+      return (
+        <AgeGroupStep
+          playerName={playerName}
+          phase={phase}
+          onSelect={setPhase}
+          onNext={() => handleAgeSubmit(phase)}
+          theme={currentTheme}
+        />
+      );
     }
     if (onboardStep === 2) {
       return (
         <CompanionStep
-          onSubmit={handleCompanionSubmit}
+          onComplete={handleCompanionSubmit}
           theme={currentTheme}
         />
       );
@@ -424,7 +427,7 @@ function AppContent() {
         <WelcomeToTreehouse
           playerName={playerName}
           companionName={companionName}
-          companionEmoji={companion?.emoji || '🐾'}
+          companionEmoji={companion?.emoji || 'ð¾'}
           onContinue={handleOnboardingComplete}
           theme={currentTheme}
         />
@@ -462,7 +465,7 @@ function AppContent() {
               cursor: 'pointer',
             }}
           >
-            🏡
+            ð¡
           </button>
           <div style={{ fontSize: 14, color: '#666', fontWeight: 600 }}>
             {Math.floor(timer.timeLeft / 60)}m {timer.timeLeft % 60}s
@@ -476,7 +479,7 @@ function AppContent() {
               cursor: 'pointer',
             }}
           >
-            ⚙️
+            âï¸
           </button>
         </div>
 
@@ -497,7 +500,7 @@ function AppContent() {
 
         {questPhase === 'complete' && questResult && (
           <div style={{ padding: 20, textAlign: 'center' }}>
-            <div style={{ fontSize: 48, marginBottom: 20 }}>🎉</div>
+            <div style={{ fontSize: 48, marginBottom: 20 }}>ð</div>
             <h2 style={{ color: currentTheme.accent, fontSize: 28, marginBottom: 20 }}>
               Quest Complete!
             </h2>
@@ -511,7 +514,7 @@ function AppContent() {
                 Correct: {questResult.correct}/{questResult.total}
               </div>
               <div style={{ fontSize: 18, color: '#666', marginBottom: 12 }}>
-                Stars: {'⭐'.repeat(questResult.questStars)}
+                Stars: {'â­'.repeat(questResult.questStars)}
               </div>
               <div style={{ fontSize: 18, color: '#666' }}>
                 XP Gained: +{questResult.xpGained}
@@ -585,7 +588,7 @@ function AppContent() {
           }}
         >
           <div style={{ fontSize: 20, fontWeight: 700, color: currentTheme.accent }}>
-            ✨ {playerName}
+            â¨ {playerName}
           </div>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
             <button
@@ -600,7 +603,7 @@ function AppContent() {
                 cursor: 'pointer',
               }}
             >
-              Breathe 🌬️
+              Breathe ð¬ï¸
             </button>
             <button
               onClick={() => setShowBadgesPanel(true)}
@@ -611,7 +614,7 @@ function AppContent() {
                 cursor: 'pointer',
               }}
             >
-              🏆 {earnedBadges.size}
+              ð {earnedBadges.size}
             </button>
             <button
               onClick={() => setShowSensoryMenu(true)}
@@ -622,7 +625,7 @@ function AppContent() {
                 cursor: 'pointer',
               }}
             >
-              ⚙️
+              âï¸
             </button>
           </div>
         </div>
@@ -678,7 +681,7 @@ function AppContent() {
               animation: 'slideUp 0.3s ease',
             }}
           >
-            ⏰ Only {Math.floor(timer.timeLeft / 60)} minutes left!
+            â° Only {Math.floor(timer.timeLeft / 60)} minutes left!
           </div>
         )}
 
