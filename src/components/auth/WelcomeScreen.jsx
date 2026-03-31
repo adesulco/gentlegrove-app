@@ -112,6 +112,8 @@ export default function WelcomeScreen({ onSignIn, onRegister, onGuest, theme = {
                                 Play as Guest (progress will not be saved)
                       </button>
               </div>
+
+      <a href="mailto:hi@gentlegrove.id" style={{ color: "#999", fontSize: 13, marginTop: 24, fontFamily: "'Inter', sans-serif", textDecoration: "none" }}>Contact Us / Feedback</a>
         
               <style>{`
                       @keyframes float {
