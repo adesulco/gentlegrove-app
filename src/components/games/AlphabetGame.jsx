@@ -46,7 +46,7 @@ function AlphabetSeedlings({ onComplete, settings, companionEmoji, companionName
   const item = items[current];
   return (
     <div style={{ padding: 20 }}>
-      <ScoreHUD correct={correctCount} total={current} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
+      <ScoreHUD correct={correctCount} total={current + (feedback ? 1 : 0)} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
       <div style={{ fontSize: 16, color: "#888", marginBottom: 14 }}>Letter {current + 1} of {items.length}</div>
       <div style={{ background: "#F0F7FF", borderRadius: 20, padding: 28, textAlign: "center", marginBottom: 20 }}>
         <div style={{ fontSize: 64, marginBottom: 8 }}>{item.emoji}</div>
@@ -118,7 +118,7 @@ function AlphabetExplorersNav({ items, onComplete, settings, companionEmoji, com
   const q = items[current];
   return (
     <div style={{ padding: 20 }}>
-      <ScoreHUD correct={correctCount} total={current} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
+      <ScoreHUD correct={correctCount} total={current + (feedback ? 1 : 0)} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
       <div style={{ fontSize: 16, color: "#888", marginBottom: 14 }}>Question {current + 1} of {items.length}</div>
       <div style={{ background: "#F0F7FF", borderRadius: 20, padding: 24, textAlign: "center", marginBottom: 20 }}>
         <div style={{ fontSize: settings.fontSize, color: "#333", fontWeight: 600, lineHeight: 1.5 }}>{q.question}</div>
