@@ -232,7 +232,7 @@ function AppContent() {
       phase,
       onComplete: handleQuestComplete,
       settings,
-      companionEmoji: companion?.emoji || 'ð¾',
+      companionEmoji: companion?.emoji || '🐾',
       companionName,
     };
 
@@ -428,6 +428,7 @@ function AppContent() {
           companion={companion}
           companionName={companionName}
           onEnter={handleOnboardingComplete}
+          onSettings={() => setScreen('settings')}
           theme={currentTheme}
         />
       );
@@ -464,7 +465,7 @@ function AppContent() {
               cursor: 'pointer',
             }}
           >
-            ð¡
+            🏡
           </button>
           <div style={{ fontSize: 14, color: '#666', fontWeight: 600 }}>
             {Math.floor(timer.timeLeft / 60)}m {timer.timeLeft % 60}s
@@ -478,7 +479,7 @@ function AppContent() {
               cursor: 'pointer',
             }}
           >
-            âï¸
+            ⚙️
           </button>
         </div>
 
@@ -499,7 +500,7 @@ function AppContent() {
 
         {questPhase === 'complete' && questResult && (
           <div style={{ padding: 20, textAlign: 'center' }}>
-            <div style={{ fontSize: 48, marginBottom: 20 }}>ð</div>
+            <div style={{ fontSize: 48, marginBottom: 20 }}>🎉</div>
             <h2 style={{ color: currentTheme.accent, fontSize: 28, marginBottom: 20 }}>
               Quest Complete!
             </h2>
@@ -513,7 +514,7 @@ function AppContent() {
                 Correct: {questResult.correct}/{questResult.total}
               </div>
               <div style={{ fontSize: 18, color: '#666', marginBottom: 12 }}>
-                Stars: {'â­'.repeat(questResult.questStars)}
+                Stars: {'⭐'.repeat(questResult.questStars)}
               </div>
               <div style={{ fontSize: 18, color: '#666' }}>
                 XP Gained: +{questResult.xpGained}
@@ -587,7 +588,7 @@ function AppContent() {
           }}
         >
           <div style={{ fontSize: 20, fontWeight: 700, color: currentTheme.accent }}>
-            â¨ {playerName}
+            ✨ {playerName}
           </div>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
             <button
@@ -602,7 +603,7 @@ function AppContent() {
                 cursor: 'pointer',
               }}
             >
-              Breathe ð¬ï¸
+              Breathe 🌬️
             </button>
             <button
               onClick={() => setShowBadgesPanel(true)}
@@ -613,7 +614,7 @@ function AppContent() {
                 cursor: 'pointer',
               }}
             >
-              ð {earnedBadges.size}
+              🏆 {earnedBadges.size}
             </button>
             <button
               onClick={() => setShowSensoryMenu(true)}
@@ -624,7 +625,7 @@ function AppContent() {
                 cursor: 'pointer',
               }}
             >
-              âï¸
+              ⚙️
             </button>
           </div>
         </div>
@@ -638,9 +639,9 @@ function AppContent() {
           totalXp={totalXp}
           level={level}
           stars={stars}
-          biomesPlayed={new Set(biomesPlayed)}
+          biomesPlayed={biomesPlayed}
           biomeStars={biomeStars}
-          earnedBadges={new Set(earnedBadges)}
+          earnedBadges={earnedBadges}
           onStartQuest={handleStartQuest}
           onShowBadges={() => setShowBadgesPanel(true)}
           onChangePlayer={handleChangePlayer}
@@ -680,7 +681,7 @@ function AppContent() {
               animation: 'slideUp 0.3s ease',
             }}
           >
-            â° Only {Math.floor(timer.timeLeft / 60)} minutes left!
+            ⏰ Only {Math.floor(timer.timeLeft / 60)} minutes left!
           </div>
         )}
 
@@ -691,7 +692,7 @@ function AppContent() {
 
         {showBadgesPanel && (
           <BadgesPanel
-            earnedBadges={new Set(earnedBadges)}
+            earnedBadges={earnedBadges}
             onClose={() => setShowBadgesPanel(false)}
           />
         )}
