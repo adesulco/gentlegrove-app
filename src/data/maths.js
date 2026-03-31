@@ -5,6 +5,12 @@ export const MATHS_SEEDLINGS = [
   { question: "How many butterflies do you see?", visual: "🦋 🦋", answer: "2", options: ["1", "2", "3", "4"], teach: "One butterfly, two butterflies! There are 2." },
   { question: "Which group has more?", visual: "🐱🐱🐱  or  🐶🐶", answer: "Cats", options: ["Cats", "Dogs"], teach: "3 cats is more than 2 dogs. 3 is a bigger number than 2!" },
   { question: "How many fingers am I holding up?", visual: "☝️✌️🤟", answer: "3", options: ["2", "3", "4", "5"], teach: "Counting fingers helps us learn numbers. Three hands show us 3!" },
+  { question: "Count the dots. How many altogether?", visual: "🔵 🔵 🔵 🔵", answer: "4", options: ["3", "4", "5", "6"], teach: "One, two, three, four! We count all the blue dots and there are 4." },
+  { question: "What comes after 5?", visual: "1 → 2 → 3 → 4 → 5 → ?", answer: "6", options: ["4", "5", "6", "7"], teach: "The numbers go in order. After 5 comes 6!" },
+  { question: "How many hearts do you see?", visual: "❤️ ❤️ ❤️", answer: "3", options: ["1", "2", "3", "4"], teach: "Let's count the hearts: one, two, three! There are 3 hearts." },
+  { question: "Which has fewer?", visual: "🌸🌸  or  🌸🌸🌸🌸", answer: "Flowers in first group", options: ["Flowers in first group", "Flowers in second group"], teach: "The first group has 2 flowers. The second group has 4 flowers. 2 is less than 4!" },
+  { question: "What number comes next?", visual: "3 → 4 → 5 → ?", answer: "6", options: ["4", "5", "6", "7"], teach: "We keep counting up! Three, four, five, six. Six comes next!" },
+  { question: "Count the animals. How many?", visual: "🐰 🐰 🐰 🐰 🐰 🐰", answer: "6", options: ["4", "5", "6", "7"], teach: "One, two, three, four, five, six! There are 6 rabbits all together." },
 ];
 
 export const MATHS_EXPLORERS = [
@@ -13,12 +19,27 @@ export const MATHS_EXPLORERS = [
   { question: "Which number is bigger: 8 or 5?", visual: "🔵🔵🔵🔵🔵🔵🔵🔵  vs  🔵🔵🔵🔵🔵", answer: "8", options: ["5", "8"], teach: "8 has more dots than 5. When a number is bigger, it has more!" },
   { question: "What is 2 + 2 + 1?", visual: "🦋🦋 + 🦋🦋 + 🦋", answer: "5", options: ["4", "5", "6", "3"], teach: "Add them step by step: 2 + 2 = 4, then 4 + 1 = 5. Five butterflies!" },
   { question: "If you have 6 stickers and give 2 to a friend, how many do you have left?", visual: "⭐⭐⭐⭐⭐⭐ give away ⭐⭐", answer: "4", options: ["3", "4", "5", "2"], teach: "6 take away 2 equals 4. Sharing is kind, and you still have 4!" },
+  { question: "What is 5 + 4?", visual: "🍌🍌🍌🍌🍌 + 🍌🍌🍌🍌", answer: "9", options: ["7", "8", "9", "10"], teach: "Count on from 5: six, seven, eight, nine. That's 5 plus 4 equals 9!" },
+  { question: "What is 10 - 4?", visual: "🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 take away 4", answer: "6", options: ["5", "6", "7", "8"], teach: "Start at 10. Remove 4. Count what remains: 1, 2, 3, 4, 5, 6!" },
+  { question: "Is 9 greater than 6?", visual: "9 ⓒ 6", answer: "Yes", options: ["Yes", "No"], teach: "9 is more than 6. 9 is greater than 6, so the answer is yes!" },
+  { question: "What is 4 + 3 + 2?", visual: "🎈🎈🎈🎈 + 🎈🎈🎈 + 🎈🎈", answer: "9", options: ["8", "9", "10", "11"], teach: "Add step by step: 4 + 3 = 7, then 7 + 2 = 9 balloons!" },
+  { question: "If you eat 3 cookies out of 8, how many are left?", visual: "8 - 3 = ?", answer: "5", options: ["4", "5", "6", "7"], teach: "Start with 8 cookies. You eat 3. Count the remaining: 5 cookies left!" },
+  { question: "What is 6 + 2?", visual: "🐝🐝🐝🐝🐝🐝 + 🐝🐝", answer: "8", options: ["7", "8", "9", "10"], teach: "6 bees plus 2 more bees. Altogether: 1, 2, 3, 4, 5, 6, 7, 8!" },
+  { question: "Which is smaller: 7 or 12?", visual: "7 ⓒ 12", answer: "7", options: ["7", "12"], teach: "7 is fewer than 12. 7 is the smaller number!" },
 ];
 
 export const MATHS_NAVIGATORS = [
   { question: "What is 12 + 15?", visual: "12 + 15 = ?", answer: "27", options: ["25", "27", "28", "30"], teach: "Add the ones first: 2 + 5 = 7. Then the tens: 10 + 10 = 20. Put them together: 27!" },
   { question: "What is 5 x 3?", visual: "🍒🍒🍒  🍒🍒🍒  🍒🍒🍒  🍒🍒🍒  🍒🍒🍒", answer: "15", options: ["12", "15", "18", "10"], teach: "5 groups of 3 cherries each. Count them all: 3, 6, 9, 12, 15!" },
-  { question: "If there are 20 students and they split into 4 equal teams, how many on each team?", visual: "20 ÷ 4 = ?", answer: "5", options: ["4", "5", "6", "3"], teach: "20 divided by 4 means sharing 20 equally into 4 groups. Each group gets 5!" },
-  { question: "What is half of 16?", visual: "16 ÷ 2 = ?", answer: "8", options: ["6", "7", "8", "9"], teach: "Half means splitting into 2 equal parts. 16 split in half gives us 8 and 8!" },
+  { question: "If there are 20 students and they split into 4 equal teams, how many on each team?", visual: "20 ष 4 = ?", answer: "5", options: ["4", "5", "6", "3"], teach: "20 divided by 4 means sharing 20 equally into 4 groups. Each group gets 5!" },
+  { question: "What is half of 16?", visual: "16 ष 2 = ?", answer: "8", options: ["6", "7", "8", "9"], teach: "Half means splitting into 2 equal parts. 16 split in half gives us 8 and 8!" },
   { question: "Round 47 to the nearest ten.", visual: "47 → ?0", answer: "50", options: ["40", "45", "50", "47"], teach: "47 is between 40 and 50. Since 7 is more than 5, we round up to 50!" },
+  { question: "What is 24 + 18?", visual: "24 + 18 = ?", answer: "42", options: ["40", "42", "44", "46"], teach: "Add the ones:' 4 + 8 = 12 (write 2, carry 1). Add the tens: 2 + 1 + 1 = 4. Answer is 42!" },
+  { question: "What is 7 x 6?", visual: "7 × 6 = ?", answer: "42", options: ["35", "40", "42", "48"], teach: "7 groups of 6 items. Skip count by 6s: 6, 12, 18, 24, 30, 36, 42!" },
+  { question: "What is 32 - 17?", visual: "32 - 17 = ?", answer: "15", options: ["13", "15", "17", "19"], teach: "Start at 32. Take away 17. Subtract the ones first: 2 - 7 (need to borrow), then tens. Answer is 15!" },
+  { question: "What is 48 ष 6?", visual: "48 ष 6 = ?", answer: "8", options: ["6", "7", "8", "9"], teach: "Divide 48 into 6 equal groups. Each group gets 8. Check: 6 ष 8 = 48!" },
+  { question: "What is 1/4 of 20?", visual: "1/4 of 20 = ?", answer: "5", options: ["4", "5", "6", "8"], teach: "A quarter means dividing into 4 equal parts. 20 ष 4 = 5. One quarter is 5!" },
+  { question: "Round 83 to the nearest ten.", visual: "83 → ?@", answer: "80", options: ["80", "85", "90", "83"], teach: "83 is between 80 and 90. Since 3 is less than 5, we round down to 80!" },
+  { question: "What is 3 x 8?", visual: "3 × 8 = ?", answer: "24", options: ["20", "6", "24", "26"], teach: "3 groups of 8. Count by eights: 8, 16, 24. Or count: 8 + 8 + 8 = 24!" },
+  { question: "What is 1/2 of 14?", visual: "1/2 of 14 = ?", answer: "7", options: ["6", "7", "8", "9"], teach: "Half means dividing into 2 equal parts. 14 ष 2 = 7. One half is 7!" },
 ];
