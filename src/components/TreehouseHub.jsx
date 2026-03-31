@@ -3,27 +3,8 @@ import { BIOMES, companionStage } from '../data/constants';
 
 /**
  * TreehouseHub - Main treehouse hub screen
- * Shows:
- * - Treehouse title and welcome message
- * - Companion display with growth progress bar and stage label
- * - 7 biome buttons in a grid (each shows emoji, name, skill, star count, explored checkmark)
- * - Level/XP progress bar
- * - Badges and Change Player buttons
- *
- * @param {string} playerName - Child's name
- * @param {string} phase - Age phase (seedlings, explorers, navigators)
- * @param {object} companion - Companion object
- * @param {string} companionName - Name given to companion
- * @param {number} totalXp - Total experience points
- * @param {number} level - Current level
- * @param {number} stars - Total stars earned
- * @param {Set} biomesPlayed - Set of biome IDs that have been played
- * @param {object} biomeStars - Object with biome IDs as keys and star counts as values
- * @param {Set} earnedBadges - Set of earned badge IDs
- * @param {function} onStartQuest - Callback with (biome) when biome is selected
- * @param {function} onShowBadges - Callback to show badges panel
- * @param {function} onChangePlayer - Callback to change player
- * @param {object} theme - Theme object with colors (accent, bg)
+ * Optimized for kids ages 3-12 on tablet devices (768px+)
+ * Large touch targets, readable text, simple layout
  */
 export default function TreehouseHub({
   playerName = "Player",
@@ -60,25 +41,18 @@ export default function TreehouseHub({
         minHeight: "100vh",
         background: themeDefaults.bg,
         position: "relative",
-        padding: 20
+        padding: "16px 20px 24px"
       }}
     >
       {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: 20 }}>
-        <div
-          style={{
-            fontSize: 36,
-            fontWeight: 700,
-            color: "#555",
-            marginBottom: 4
-          }}
-        >
+      <div style={{ textAlign: "center", marginBottom: 16 }}>
+        <div style={{ fontSize: 48, marginBottom: 4 }}>
           {companionEmoji}
         </div>
-        <h2 style={{ margin: "0 0 4px 0", color: themeDefaults.accent, fontSize: 24 }}>
+        <h2 style={{ margin: "0 0 4px 0", color: themeDefaults.accent, fontSize: 28, fontWeight: 800 }}>
           The Treehouse
         </h2>
-        <p style={{ color: "#777", fontSize: 16, margin: "0" }}>
+        <p style={{ color: "#777", fontSize: 18, margin: "0" }}>
           Where to, {playerName}? ({phase})
         </p>
       </div>
@@ -87,23 +61,23 @@ export default function TreehouseHub({
       <div
         style={{
           background: "white",
-          borderRadius: 16,
-          padding: 16,
-          marginBottom: 20,
+          borderRadius: 18,
+          padding: "14px 18px",
+          marginBottom: 16,
           textAlign: "center"
         }}
       >
-        <div style={{ fontSize: 16, fontWeight: 600, color: "#555", marginBottom: 8 }}>
+        <div style={{ fontSize: 18, fontWeight: 700, color: "#555", marginBottom: 6 }}>
           {companionName} {cStage.suffix}
         </div>
-        <div style={{ fontSize: 13, color: "#888", marginBottom: 8 }}>
+        <div style={{ fontSize: 15, color: "#888", marginBottom: 8 }}>
           {cStage.label} • {totalXp} XP to next stage
         </div>
         <div
           style={{
-            height: 12,
+            height: 14,
             background: "#e8e8e8",
-            borderRadius: 6,
+            borderRadius: 7,
             overflow: "hidden",
             marginBottom: 4
           }}
@@ -112,13 +86,13 @@ export default function TreehouseHub({
             style={{
               height: "100%",
               background: "linear-gradient(90deg, #7EC8E3, #2B579A)",
-              borderRadius: 4,
+              borderRadius: 7,
               width: `${xpProgress}%`,
               transition: "width 0.3s ease"
             }}
           />
         </div>
-        <div style={{ fontSize: 12, color: "#999" }}>
+        <div style={{ fontSize: 14, color: "#999" }}>
           {totalXp >= 50 ? totalXp - Math.floor(totalXp / 50) * 50 : totalXp}/50 XP
         </div>
       </div>
@@ -128,8 +102,8 @@ export default function TreehouseHub({
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          gap: 12,
-          marginBottom: 20
+          gap: 14,
+          marginBottom: 16
         }}
       >
         {BIOMES.map((biome) => {
@@ -141,14 +115,15 @@ export default function TreehouseHub({
               key={biome.id}
               onClick={() => onStartQuest(biome)}
               style={{
-                padding: 16,
-                borderRadius: 14,
+                padding: "18px 14px",
+                borderRadius: 18,
                 border: "2px solid #e0e0e0",
                 background: "white",
                 cursor: "pointer",
                 textAlign: "center",
                 transition: "all 0.2s ease",
-                position: "relative"
+                position: "relative",
+                minHeight: 110
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = themeDefaults.accent;
@@ -161,23 +136,23 @@ export default function TreehouseHub({
                 e.currentTarget.style.boxShadow = "none";
               }}
             >
-              <div style={{ fontSize: 28, marginBottom: 6 }}>{biome.emoji}</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#444", marginBottom: 4 }}>
+              <div style={{ fontSize: 36, marginBottom: 6 }}>{biome.emoji}</div>
+              <div style={{ fontSize: 17, fontWeight: 700, color: "#444", marginBottom: 4 }}>
                 {biome.name}
               </div>
-              <div style={{ fontSize: 12, color: "#888", marginBottom: 6 }}>
+              <div style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>
                 {biome.skill}
               </div>
-              <div style={{ fontSize: 12, color: "#FFD54F", fontWeight: 600 }}>
+              <div style={{ fontSize: 14, color: "#FFD54F", fontWeight: 600 }}>
                 {"⭐".repeat(Math.min(stars_count, 3))}
               </div>
               {isPlayed && (
                 <div
                   style={{
                     position: "absolute",
-                    top: 6,
-                    right: 6,
-                    fontSize: 16,
+                    top: 8,
+                    right: 8,
+                    fontSize: 18,
                     opacity: 0.6
                   }}
                 >
@@ -193,20 +168,20 @@ export default function TreehouseHub({
       <div
         style={{
           background: "white",
-          borderRadius: 14,
-          padding: 14,
-          marginBottom: 20,
+          borderRadius: 16,
+          padding: "14px 18px",
+          marginBottom: 16,
           textAlign: "center"
         }}
       >
-        <div style={{ fontSize: 14, fontWeight: 600, color: "#555", marginBottom: 6 }}>
+        <div style={{ fontSize: 17, fontWeight: 700, color: "#555", marginBottom: 6 }}>
           Level {level}
         </div>
         <div
           style={{
-            height: 8,
+            height: 10,
             background: "#e8e8e8",
-            borderRadius: 4,
+            borderRadius: 5,
             overflow: "hidden"
           }}
         >
@@ -214,7 +189,7 @@ export default function TreehouseHub({
             style={{
               height: "100%",
               background: "linear-gradient(90deg, #7EC8E3, #2B579A)",
-              borderRadius: 4,
+              borderRadius: 5,
               width: `${levelProgress * 100}%`,
               transition: "width 0.3s ease"
             }}
@@ -223,18 +198,18 @@ export default function TreehouseHub({
       </div>
 
       {/* Action Buttons */}
-      <div style={{ display: "flex", gap: 10 }}>
+      <div style={{ display: "flex", gap: 12 }}>
         <button
           onClick={onShowBadges}
           style={{
             flex: 1,
-            padding: "12px 14px",
-            borderRadius: 14,
+            padding: "14px 16px",
+            borderRadius: 16,
             border: `2px solid ${themeDefaults.accent}`,
             background: "white",
             color: themeDefaults.accent,
-            fontSize: 14,
-            fontWeight: 600,
+            fontSize: 17,
+            fontWeight: 700,
             cursor: "pointer",
             transition: "all 0.2s ease"
           }}
@@ -253,13 +228,13 @@ export default function TreehouseHub({
           onClick={onChangePlayer}
           style={{
             flex: 1,
-            padding: "12px 14px",
-            borderRadius: 14,
+            padding: "14px 16px",
+            borderRadius: 16,
             border: `2px solid ${themeDefaults.accent}`,
             background: "white",
             color: themeDefaults.accent,
-            fontSize: 14,
-            fontWeight: 600,
+            fontSize: 17,
+            fontWeight: 700,
             cursor: "pointer",
             transition: "all 0.2s ease"
           }}
