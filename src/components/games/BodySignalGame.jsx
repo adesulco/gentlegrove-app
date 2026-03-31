@@ -48,7 +48,7 @@ function BodySignalSeedlings({ onComplete, settings, companionEmoji, companionNa
   const item = items[current];
   return (
     <div style={{ padding: 20 }}>
-      <ScoreHUD correct={correctCount} total={current} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
+      <ScoreHUD correct={correctCount} total={current + (feedback ? 1 : 0)} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
       <div style={{ fontSize: 16, color: "#888", marginBottom: 14 }}>{current + 1} of {items.length}</div>
       <div style={{ background: "#FFF0F0", borderRadius: 20, padding: 28, textAlign: "center", marginBottom: 20 }}>
         <div style={{ fontSize: 56, marginBottom: 10 }}>{item.signalEmoji}</div>
@@ -121,7 +121,7 @@ function BodySignalExplorers({ onComplete, settings, companionEmoji, companionNa
   const item = items[current];
   return (
     <div style={{ padding: 20 }}>
-      <ScoreHUD correct={correctCount} total={current} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
+      <ScoreHUD correct={correctCount} total={current + (feedback ? 1 : 0)} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
       <div style={{ fontSize: 16, color: "#888", marginBottom: 14 }}>{current + 1} of {items.length}</div>
       <div style={{ background: "#FFF0F0", borderRadius: 20, padding: 28, textAlign: "center", marginBottom: 20 }}>
         <div style={{ fontSize: 56, marginBottom: 10 }}>{item.signalEmoji}</div>
@@ -160,10 +160,7 @@ function BodySignalExplorers({ onComplete, settings, companionEmoji, companionNa
         </div>
       )}
     </div>
-  );
-}
-
-function BodySignalNavigators({ onComplete, settings, companionEmoji, companionName }) {
+   "Šfunction BodySignalNavigators({ onComplete, settings, companionEmoji, companionName }) {
   const items = BODY_SIGNALS_NAVIGATORS;
   const [current, setCurrent] = useState(0);
   const [feedback, setFeedback] = useState(null);
@@ -193,14 +190,14 @@ function BodySignalNavigators({ onComplete, settings, companionEmoji, companionN
   const item = items[current];
   return (
     <div style={{ padding: 20 }}>
-      <ScoreHUD correct={correctCount} total={current} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
+      <ScoreHUD correct={correctCount} total={current + (feedback ? 1 : 0)} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
       <div style={{ fontSize: 16, color: "#888", marginBottom: 14 }}>Situation {current + 1} of {items.length}</div>
       <div style={{ background: "#FFF0F0", borderRadius: 20, padding: 24, textAlign: "center", marginBottom: 20 }}>
         <div style={{ fontSize: 15, color: "#888", fontWeight: 600, marginBottom: 8 }}>What could help in this situation?</div>
         <div style={{ fontSize: settings.fontSize, color: "#333", fontWeight: 600, lineHeight: 1.5 }}>{item.situation}</div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        {item.options.map((opt, i) => {
+        { item.options.map((opt, i) => {
           const isAnswer = opt === item.helpful;
           return (
             <button key={i} onClick={() => handleChoice(opt)}
