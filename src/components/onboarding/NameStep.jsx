@@ -73,7 +73,7 @@ export default function NameStep({ onSubmit, theme = {} }) {
             marginBottom: 10
           }}
         >
-          What's your name?
+          What's your child's name?
         </label>
 
         <input
@@ -85,7 +85,7 @@ export default function NameStep({ onSubmit, theme = {} }) {
               handleSubmit();
             }
           }}
-          placeholder="Type your name here..."
+          placeholder="Type your child's name here..."
           style={{
             width: "100%",
             padding: "16px 20px",
