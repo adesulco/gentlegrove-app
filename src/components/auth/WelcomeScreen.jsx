@@ -61,7 +61,7 @@ export default function WelcomeScreen({ onSignIn, onRegister, onGuest, theme = {
                                   alt="GentleGrove treehouse with fox"
                                   style={{ width: 140, height: 'auto' }}
                                 />
-              </div>div>
+              </div>
         
           {/* Two-tone Wordmark per brand guidelines */}
               <h1 style={{
@@ -71,9 +71,9 @@ export default function WelcomeScreen({ onSignIn, onRegister, onGuest, theme = {
                         textAlign: "center",
                         fontFamily: "'Nunito', sans-serif"
               }}>
-                      <span style={{ color: "#2B579A" }}>Gentle</span>span>
-                      <span style={{ color: "#4A7C59" }}>Grove</span>span>
-              </h1>h1>
+                      <span style={{ color: "#2B579A" }}>Gentle</span>
+                      <span style={{ color: "#4A7C59" }}>Grove</span>
+              </h1>
         
               <p style={{
                         color: "#666",
@@ -85,7 +85,7 @@ export default function WelcomeScreen({ onSignIn, onRegister, onGuest, theme = {
                         lineHeight: 1.5
               }}>
                       A treehouse of learning adventures for children on the autism spectrum
-              </p>p>
+              </p>
         
               <div style={{
                         width: "100%",
@@ -96,7 +96,7 @@ export default function WelcomeScreen({ onSignIn, onRegister, onGuest, theme = {
               }}>
                       <button onClick={onSignIn} style={btnPrimary}>
                                 Sign In
-                      </button>button>
+                      </button>
                       <button
                                   onClick={onRegister}
                                   style={{
@@ -107,18 +107,18 @@ export default function WelcomeScreen({ onSignIn, onRegister, onGuest, theme = {
                                   }}
                                 >
                                 Create Account
-                      </button>button>
+                      </button>
                       <button onClick={onGuest} style={btnSecondary}>
                                 Play as Guest (progress will not be saved)
-                      </button>button>
-              </div>div>
+                      </button>
+              </div>
         
               <style>{`
                       @keyframes float {
                                 0%, 100% { transform: translateY(0px); }
                                           50% { transform: translateY(-20px); }
                                                   }
-                                                        `}</style>style>
-        </div>div>
+                                                        `}</style>
+        </div>
       );
-}</div>
+}
