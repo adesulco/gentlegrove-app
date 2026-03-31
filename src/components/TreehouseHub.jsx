@@ -49,11 +49,11 @@ export default function TreehouseHub({
         <div style={{ fontSize: 48, marginBottom: 4 }}>
           {companionEmoji}
         </div>
-        <h2 style={{ margin: "0 0 4px 0", color: themeDefaults.accent, fontSize: 28, fontWeight: 800 }}>
+        <h2 style={{ margin: "0 0 4px 0", color: themeDefaults.accent, fontSize: 28, fontWeight: 800, fontFamily: "'Nunito', sans-serif" }}>
           The Treehouse
         </h2>
-        <p style={{ color: "#777", fontSize: 18, margin: "0" }}>
-          Where to, {playerName}? ({phase})
+        <p style={{ color: "#666", fontSize: 17, margin: "0", fontFamily: "'Inter', sans-serif" }}>
+          Where to, {playerName}?
         </p>
       </div>
 
@@ -137,10 +137,10 @@ export default function TreehouseHub({
               }}
             >
               <div style={{ fontSize: 36, marginBottom: 6 }}>{biome.emoji}</div>
-              <div style={{ fontSize: 17, fontWeight: 700, color: "#444", marginBottom: 4 }}>
+              <div style={{ fontSize: 17, fontWeight: 700, color: "#333", marginBottom: 4, fontFamily: "'Nunito', sans-serif" }}>
                 {biome.name}
               </div>
-              <div style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>
+              <div style={{ fontSize: 14, color: "#666", marginBottom: 6, fontFamily: "'Inter', sans-serif" }}>
                 {biome.skill}
               </div>
               <div style={{ fontSize: 14, color: "#FFD54F", fontWeight: 600 }}>
