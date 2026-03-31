@@ -41,9 +41,9 @@ import RoutineGame from './components/games/RoutineGame';
 import { BADGES } from './components/shared/data';
 
 const THEMES = {
-  cool: { accent: '#2B579A', bg: '#F0F7FF' },
-  warm: { accent: '#8B4513', bg: '#FFF8F0' },
-  neutral: { accent: '#556B7A', bg: '#F5F5F3' },
+  cool: { accent: '#2B579A', bg: '#F0F7FF', secondary: '#7EC8E3' },
+  warm: { accent: '#8B5E3C', bg: '#FFF8F0', secondary: '#D4943A' },
+  neutral: { accent: '#666666', bg: '#F5F5F3', secondary: '#999999' },
 };
 
 /**
@@ -534,11 +534,25 @@ function AppContent() {
 
         {/* Quest Complete: merged with offline activity (single screen, one button) */}
         {questPhase === 'complete' && questResult && (
-          <div style={{ padding: 24, textAlign: 'center' }}>
-            <div style={{ fontSize: 64, marginBottom: 16 }}>🎉</div>
-            <h2 style={{ color: currentTheme.accent, fontSize: 32, fontWeight: 800, marginBottom: 20 }}>
-              Quest Complete!
+          <div style={{ padding: 24, textAlign: 'center', animation: 'fadeIn 0.4s ease' }}>
+            <div style={{ fontSize: 64, marginBottom: 12, animation: 'popIn 0.5s ease' }}>🎉</div>
+            <h2 style={{
+              color: currentTheme.accent,
+              fontSize: 30,
+              fontWeight: 800,
+              marginBottom: 8,
+              fontFamily: "'Nunito', sans-serif"
+            }}>
+              Well Done!
             </h2>
+            <p style={{
+              color: '#666',
+              fontSize: 16,
+              marginBottom: 20,
+              fontFamily: "'Inter', sans-serif"
+            }}>
+              You finished the quest — {companionName} is proud of you!
+            </p>
             <div style={{
               background: 'white',
               borderRadius: 20,
@@ -546,14 +560,43 @@ function AppContent() {
               marginBottom: 20,
               boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
             }}>
-              <div style={{ fontSize: 22, color: '#555', marginBottom: 14, fontWeight: 600 }}>
-                Correct: {questResult.correct}/{questResult.total}
+              <div style={{
+                fontSize: 20,
+                color: '#666',
+                marginBottom: 12,
+                fontWeight: 600,
+                fontFamily: "'Inter', sans-serif"
+              }}>
+                {questResult.correct} out of {questResult.total} correct
               </div>
-              <div style={{ fontSize: 28, marginBottom: 14 }}>
+              <div style={{ fontSize: 32, marginBottom: 12, letterSpacing: 4 }}>
                 {'⭐'.repeat(questResult.questStars)}
               </div>
-              <div style={{ fontSize: 22, color: '#6A1B9A', fontWeight: 700 }}>
-                +{questResult.xpGained} XP
+              {/* Progress bar for score */}
+              <div style={{
+                height: 10,
+                background: '#e8e8e8',
+                borderRadius: 5,
+                overflow: 'hidden',
+                marginBottom: 14,
+                maxWidth: 260,
+                margin: '0 auto 14px'
+              }}>
+                <div style={{
+                  height: '100%',
+                  background: 'linear-gradient(90deg, #4A7C59, #7EC8E3)',
+                  borderRadius: 5,
+                  width: `${(questResult.correct / questResult.total) * 100}%`,
+                  transition: 'width 0.6s ease'
+                }} />
+              </div>
+              <div style={{
+                fontSize: 20,
+                color: '#2B579A',
+                fontWeight: 700,
+                fontFamily: "'Nunito', sans-serif"
+              }}>
+                +{questResult.xpGained} XP earned
               </div>
             </div>
 
@@ -568,15 +611,18 @@ function AppContent() {
               style={{
                 marginTop: 16,
                 padding: '18px 56px',
-                borderRadius: 28,
+                borderRadius: 26,
                 border: 'none',
                 background: currentTheme.accent,
                 color: 'white',
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: 700,
                 cursor: 'pointer',
                 width: '100%',
                 maxWidth: 340,
+                fontFamily: "'Nunito', sans-serif",
+                minHeight: 56,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
               }}
             >
               Back to Treehouse
@@ -698,7 +744,7 @@ function AppContent() {
             marginTop: 20,
           }}
         >
-          GentleGrove v0.5
+          GentleGrove v0.6
         </div>
 
         {/* Screen Time Warning */}
