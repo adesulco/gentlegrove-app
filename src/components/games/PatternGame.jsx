@@ -50,7 +50,7 @@ export default function PatternGame({ phase, onComplete, settings, companionEmoj
 
   return (
     <div style={{ padding: 20 }}>
-      <ScoreHUD correct={correctCount} total={current} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
+      <ScoreHUD correct={correctCount} total={current + (feedback ? 1 : 0)} xp={xp} companionEmoji={companionEmoji} companionName={companionName} />
       <div style={{ fontSize: 16, color: "#888", marginBottom: 14 }}>Pattern {current + 1} of {patterns.length}</div>
       <div style={{ background: bgColor, borderRadius: 20, padding: 28, textAlign: "center", marginBottom: 20 }}>
         <div style={{ fontSize: 18, color: "#666", marginBottom: 14, fontWeight: 600 }}>What comes next in the pattern?</div>
