@@ -44,12 +44,12 @@ export const GameProvider = ({ children, parentId, childUsername }) => {
   const [level, setLevel] = useState(1);
 
   // Biome data
-  const [biomesPlayed, setBiomesPlayed] = useState([]);
+  const [biomesPlayed, setBiomesPlayed] = useState(new Set());
   const [biomeStars, setBiomeStars] = useState({});
 
   // Badge/reward data
   const [harmonyCount, setHarmonyCount] = useState(0);
-  const [earnedBadges, setEarnedBadges] = useState([]);
+  const [earnedBadges, setEarnedBadges] = useState(new Set());
 
   // Settings
   const [settings, setSettings] = useState({
@@ -91,10 +91,10 @@ export const GameProvider = ({ children, parentId, childUsername }) => {
           stars,
           totalXp,
           level,
-          biomesPlayed,
+          biomesPlayed: [...biomesPlayed],
           biomeStars,
           harmonyCount,
-          earnedBadges,
+          earnedBadges: [...earnedBadges],
           settings,
         });
       } catch (err) {
@@ -125,10 +125,10 @@ export const GameProvider = ({ children, parentId, childUsername }) => {
         setStars(profile.stars || 0);
         setTotalXp(profile.totalXp || 0);
         setLevel(profile.level || 1);
-        setBiomesPlayed(profile.biomesPlayed || []);
+        setBiomesPlayed(new Set(profile.biomesPlayed || []));
         setBiomeStars(profile.biomeStars || {});
         setHarmonyCount(profile.harmonyCount || 0);
-        setEarnedBadges(profile.earnedBadges || []);
+        setEarnedBadges(new Set(profile.earnedBadges || []));
         setSettings(profile.settings || {
           theme: 'light',
           animSpeed: 'normal',
@@ -166,10 +166,10 @@ export const GameProvider = ({ children, parentId, childUsername }) => {
         stars,
         totalXp,
         level,
-        biomesPlayed,
+        biomesPlayed: [...biomesPlayed],
         biomeStars,
         harmonyCount,
-        earnedBadges,
+        earnedBadges: [...earnedBadges],
         settings,
       });
     } catch (err) {
@@ -191,10 +191,10 @@ export const GameProvider = ({ children, parentId, childUsername }) => {
     setStars(0);
     setTotalXp(0);
     setLevel(1);
-    setBiomesPlayed([]);
+    setBiomesPlayed(new Set());
     setBiomeStars({});
     setHarmonyCount(0);
-    setEarnedBadges([]);
+    setEarnedBadges(new Set());
     setSettings({
       theme: 'light',
       animSpeed: 'normal',
