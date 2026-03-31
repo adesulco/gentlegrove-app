@@ -160,7 +160,10 @@ function BodySignalExplorers({ onComplete, settings, companionEmoji, companionNa
         </div>
       )}
     </div>
-   "Šfunction BodySignalNavigators({ onComplete, settings, companionEmoji, companionName }) {
+  );
+}
+
+function BodySignalNavigators({ onComplete, settings, companionEmoji, companionName }) {
   const items = BODY_SIGNALS_NAVIGATORS;
   const [current, setCurrent] = useState(0);
   const [feedback, setFeedback] = useState(null);
@@ -197,7 +200,7 @@ function BodySignalExplorers({ onComplete, settings, companionEmoji, companionNa
         <div style={{ fontSize: settings.fontSize, color: "#333", fontWeight: 600, lineHeight: 1.5 }}>{item.situation}</div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        { item.options.map((opt, i) => {
+        {item.options.map((opt, i) => {
           const isAnswer = opt === item.helpful;
           return (
             <button key={i} onClick={() => handleChoice(opt)}
