@@ -43,7 +43,7 @@ import { BADGES } from './components/shared/data';
 const THEMES = {
   cool: { accent: '#2B579A', bg: '#F0F7FF' },
   warm: { accent: '#8B4513', bg: '#FFF8F0' },
-  neutral: { accent: '#555B7A', bg: '#F5F5F3' },
+  neutral: { accent: '#556B7A', bg: '#F5F5F3' },
 };
 
 /**
@@ -368,8 +368,9 @@ function AppContent() {
     if (loginMode === 'signin') {
       return (
         <SignInScreen
-          onSuccess={handleSignInSuccess}
+          onSignIn={handleSignInSuccess}
           onBack={() => setLoginMode('welcome')}
+          error={authContext?.error || ''}
           theme={currentTheme}
         />
       );
@@ -378,8 +379,9 @@ function AppContent() {
     if (loginMode === 'register') {
       return (
         <RegisterScreen
-          onSuccess={handleRegisterSuccess}
+          onRegister={handleRegisterSuccess}
           onBack={() => setLoginMode('welcome')}
+          error={authContext?.error || ''}
           theme={currentTheme}
         />
       );
@@ -446,7 +448,7 @@ function AppContent() {
           style={{
             background: 'white',
             borderBottom: `2px solid ${currentTheme.accent}`,
-            padding: '12px 16px',
+            padding: '14px 18px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -461,13 +463,14 @@ function AppContent() {
             style={{
               background: 'none',
               border: 'none',
-              fontSize: 24,
+              fontSize: 32,
               cursor: 'pointer',
+              padding: '4px 8px',
             }}
           >
             🏡
           </button>
-          <div style={{ fontSize: 14, color: '#666', fontWeight: 600 }}>
+          <div style={{ fontSize: 18, color: '#555', fontWeight: 700 }}>
             {Math.floor(timer.timeLeft / 60)}m {timer.timeLeft % 60}s
           </div>
           <button
@@ -475,8 +478,9 @@ function AppContent() {
             style={{
               background: 'none',
               border: 'none',
-              fontSize: 24,
+              fontSize: 32,
               cursor: 'pointer',
+              padding: '4px 8px',
             }}
           >
             ⚙️
@@ -499,38 +503,41 @@ function AppContent() {
         )}
 
         {questPhase === 'complete' && questResult && (
-          <div style={{ padding: 20, textAlign: 'center' }}>
-            <div style={{ fontSize: 48, marginBottom: 20 }}>🎉</div>
-            <h2 style={{ color: currentTheme.accent, fontSize: 28, marginBottom: 20 }}>
+          <div style={{ padding: 24, textAlign: 'center' }}>
+            <div style={{ fontSize: 64, marginBottom: 16 }}>🎉</div>
+            <h2 style={{ color: currentTheme.accent, fontSize: 32, fontWeight: 800, marginBottom: 20 }}>
               Quest Complete!
             </h2>
             <div style={{
               background: 'white',
-              borderRadius: 16,
-              padding: 20,
-              marginBottom: 20,
+              borderRadius: 20,
+              padding: 24,
+              marginBottom: 24,
+              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
             }}>
-              <div style={{ fontSize: 18, color: '#666', marginBottom: 12 }}>
+              <div style={{ fontSize: 22, color: '#555', marginBottom: 14, fontWeight: 600 }}>
                 Correct: {questResult.correct}/{questResult.total}
               </div>
-              <div style={{ fontSize: 18, color: '#666', marginBottom: 12 }}>
-                Stars: {'⭐'.repeat(questResult.questStars)}
+              <div style={{ fontSize: 28, marginBottom: 14 }}>
+                {'⭐'.repeat(questResult.questStars)}
               </div>
-              <div style={{ fontSize: 18, color: '#666' }}>
-                XP Gained: +{questResult.xpGained}
+              <div style={{ fontSize: 22, color: '#6A1B9A', fontWeight: 700 }}>
+                +{questResult.xpGained} XP
               </div>
             </div>
             <button
               onClick={handleQuestCompleteConfirm}
               style={{
-                padding: '14px 48px',
-                borderRadius: 24,
+                padding: '18px 56px',
+                borderRadius: 28,
                 border: 'none',
                 background: currentTheme.accent,
                 color: 'white',
-                fontSize: 18,
+                fontSize: 22,
                 fontWeight: 700,
                 cursor: 'pointer',
+                width: '100%',
+                maxWidth: 340,
               }}
             >
               Continue
@@ -580,26 +587,26 @@ function AppContent() {
           style={{
             background: 'white',
             borderBottom: `2px solid ${currentTheme.accent}`,
-            padding: '12px 16px',
+            padding: '14px 18px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
           }}
         >
-          <div style={{ fontSize: 20, fontWeight: 700, color: currentTheme.accent }}>
+          <div style={{ fontSize: 22, fontWeight: 800, color: currentTheme.accent }}>
             ✨ {playerName}
           </div>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
             <button
               onClick={() => setShowBreathingPause(true)}
               style={{
                 background: '#FFD700',
                 border: 'none',
-                borderRadius: 20,
-                padding: '8px 16px',
-                fontSize: 14,
-                fontWeight: 600,
+                borderRadius: 22,
+                padding: '10px 18px',
+                fontSize: 17,
+                fontWeight: 700,
                 cursor: 'pointer',
               }}
             >
@@ -610,19 +617,21 @@ function AppContent() {
               style={{
                 background: 'none',
                 border: 'none',
-                fontSize: 24,
+                fontSize: 28,
                 cursor: 'pointer',
+                padding: '4px',
               }}
             >
-              🏆 {earnedBadges.size}
+              🏆 <span style={{ fontSize: 18, fontWeight: 700 }}>{earnedBadges.size}</span>
             </button>
             <button
               onClick={() => setShowSensoryMenu(true)}
               style={{
                 background: 'none',
                 border: 'none',
-                fontSize: 24,
+                fontSize: 28,
                 cursor: 'pointer',
+                padding: '4px',
               }}
             >
               ⚙️
@@ -675,8 +684,8 @@ function AppContent() {
               padding: '16px',
               borderRadius: '12px',
               textAlign: 'center',
-              fontSize: 16,
-              fontWeight: 600,
+              fontSize: 18,
+              fontWeight: 700,
               zIndex: 100,
               animation: 'slideUp 0.3s ease',
             }}
