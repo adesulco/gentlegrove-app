@@ -9,13 +9,17 @@ export const EMOTIONS = [
 
 export const SCENARIOS_SEEDLINGS = [
   { text: "Your friend gives you a big hug and shares their toy with you.", answer: "Happy", visual: "🧸🤝😊", teach: "When someone shares with us, it can make us feel warm and happy inside." },
-  { text: "Your favorite toy fell and broke into pieces.", answer: "Sad", visual: "🧸💔", teach: "It is okay to feel sad when something we love gets broken." },
+  { text: "Your favorite toy fell and broke into pieces.", answer: "Sad", visual: "🧸💙", teach: "It is okay to feel sad when something we love gets broken." },
   { text: "Someone pushed in front of you when you were waiting for your turn.", answer: "Angry", visual: "🚫🔄", teach: "Feeling angry when things are not fair is normal. We can take a deep breath." },
   { text: "There is a loud thunder sound outside and the lights went off.", answer: "Scared", visual: "🌩️💡", teach: "Loud unexpected sounds can be scary. Finding a safe spot helps us feel better." },
   { text: "You open a box and find a present you did not know about!", answer: "Surprised", visual: "🎁👀", teach: "Surprise means something happened that we did not expect!" },
   { text: "You are sitting with a blanket, listening to soft music.", answer: "Calm", visual: "🎵🛏️", teach: "Calm means our body and mind feel relaxed and peaceful." },
   { text: "Your mom makes your favorite food for dinner.", answer: "Happy", visual: "🍽️❤️", teach: "When people do nice things for us, it can make us feel happy and loved." },
   { text: "Your best friend is moving away and you will not see them every day.", answer: "Sad", visual: "💼🛫", teach: "Missing someone we care about is a kind of sadness, and that is okay." },
+  { text: "Someone takes your snack without asking and eats it all.", answer: "Angry", visual: "🍪🚫", teach: "It is okay to feel upset when someone takes something that is yours without permission." },
+  { text: "You see a big dog running toward you and you do not know if it is friendly.", answer: "Scared", visual: "🐕🏃", teach: "It is natural to feel worried about things that are big or different. A grown-up can help keep you safe." },
+  { text: "You find a butterfly landing on your shoulder!", answer: "Surprised", visual: "🦋✨", teach: "Surprises can be happy moments when something magical and unexpected happens!" },
+  { text: "You are playing quietly with blocks and nothing is bothering you.", answer: "Calm", visual: "🧩🤫", teach: "When you are doing something you love in a quiet place, your whole body feels relaxed." },
 ];
 
 export const SCENARIOS_EXPLORERS = [
@@ -27,6 +31,10 @@ export const SCENARIOS_EXPLORERS = [
   { text: "After a busy day at school, Ravi sits in his reading corner with his favorite book. How does Ravi feel?", answer: "Calm", visual: "📖🛋️", teach: "Having a quiet spot to rest helps our body and mind feel calm after a busy time." },
   { text: "Zara built a really tall tower with blocks, but it fell down just before she finished. How does Zara feel?", answer: "Sad", visual: "🧱💥", teach: "It is disappointing when something we worked hard on does not turn out. We can always try again." },
   { text: "Noah is at a birthday party but the music is very loud and there are too many people. How does Noah feel?", answer: "Scared", visual: "🔊👥", teach: "Too much noise and too many people can feel overwhelming. It is okay to take a break in a quieter spot." },
+  { text: "Grace's drawing was picked as the best in class and the teacher showed it to everyone. How does Grace feel?", answer: "Happy", visual: "🌟🖼️", teach: "When something we make is shown and celebrated by others, we feel proud and joyful." },
+  { text: "Ethan wanted to play outside, but it rained all day and he had to stay inside. How does Ethan feel?", answer: "Sad", visual: "⛈️😔", teach: "When plans change and we do not get to do what we wanted, it is okay to feel disappointed." },
+  { text: "Kai was playing nicely when someone told him he was doing it wrong, even though he was having fun. How does Kai feel?", answer: "Angry", visual: "💭✋", teach: "It can feel frustrating when someone criticizes what you are doing. You get to have fun your own way!" },
+  { text: "Isla hears strange noises in the dark room and does not know what is making them. How does Isla feel?", answer: "Scared", visual: "🌑👂", teach: "Strange sounds in the dark can be scary. Turning on a light or asking for help makes us feel safer." },
 ];
 
 export const SCENARIOS_NAVIGATORS = [
@@ -35,7 +43,11 @@ export const SCENARIOS_NAVIGATORS = [
   { text: "Jordan's teacher announces a surprise field trip for tomorrow. Jordan did not have time to prepare and does not know what to expect. How might Jordan feel?", answer: "Scared", visual: "🚌❓", teach: "Unexpected changes to our routine can feel unsettling. Making a plan or asking questions can help." },
   { text: "After a really stressful week with lots of tests, Noor sits in the garden listening to birds singing. How might Noor feel?", answer: "Calm", visual: "🌳🐦", teach: "Nature and quiet time can help us recover after stressful times. Our body needs rest." },
   { text: "Aisha came home to find that her little brother had secretly cleaned and organized her messy room. How might Aisha feel?", answer: "Happy", visual: "🛏️✨", teach: "Acts of kindness from family can make us feel loved and grateful." },
-  { text: "Leo opens his lunchbox and finds a handwritten note from his grandmother who lives far away. He has not heard from her in a while. How might Leo feel?", answer: "Surprised", visual: "📧👨‍🦳", teach: "Unexpected kindness from people we miss can bring happy surprise and warm feelings." },
+  { text: "Leo opens his lunchbox and finds a handwritten note from his grandmother whm lives far away. He has not heard from her in a while. How might Leo feel?", answer: "Surprised", visual: "📧👨‍🦳", teach: "Unexpected kindness from people we miss can bring happy surprise and warm feelings." },
   { text: "Priya's group project partners are all chatting and laughing together but she finds it hard to join their conversation. How might Priya feel?", answer: "Sad", visual: "👥💬", teach: "It can be hard to join a fast conversation. Asking a question about what they are talking about can be a good way in." },
   { text: "Omar studied hard and finally got a good grade on a test he was worried about. How might Omar feel?", answer: "Happy", visual: "📝⭐", teach: "Working hard and seeing results builds confidence. Celebrate your effort!" },
+  { text: "Tasha's friend cancelled their plans at the last minute without a good reason, and this has happened before. How might Tasha feel?", answer: "Angry", visual: "📅💔", teach: "Feeling frustrated when someone keeps canceling is valid. It is okay to talk about how this makes you feel." },
+  { text: "Davon realized he accidentally said something that hurt his friend's feelings during lunch. How might Davon feel?", answer: "Sad", visual: "💬😔", teach: "Realizing we hurt someone feels bad, and it shows we care. Apologizing sincerely helps repair the friendship." },
+  { text: "Sophie got invited to a sleepover at someone's house she has never been to, and she will not know many kids there. How might Sophie feel?", answer: "Scared", visual: "🏠👥", teach: "New social situations can feel nerve-wracking. Knowing what to expect and having a comfort item can help." },
+  { text: "Marcus did not expect to pass a difficult test and when he saw his good grade, he felt a rush of relief and happiness. How might Marcus feel?", answer: "Surprised", visual: "📋✨", teach: "Sometimes we surprise ourselves with what we can do. That feeling of pleasant shock shows growth." },
 ];
