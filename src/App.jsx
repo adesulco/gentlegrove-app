@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { AuthContext, AuthProvider } from './context/AuthContext';
 import { GameContext, GameProvider } from './context/GameContext';
 import { useScreenTimer } from './hooks/useScreenTimer';
+import * as dataService from './services/dataService';
 
 // Auth Components
 import WelcomeScreen from './components/auth/WelcomeScreen';
@@ -37,7 +38,6 @@ import PatternGame from './components/games/PatternGame';
 import RoutineGame from './components/games/RoutineGame';
 
 // Data
-// COMPANIONS import removed - companion selection now handled in CompanionStep
 import { BADGES } from './components/shared/data';
 
 const THEMES = {
@@ -49,7 +49,6 @@ const THEMES = {
 /**
  * AppContent - Main application component
  * Manages screen routing, game state, and overlays
- * This component is wrapped in both AuthProvider and GameProvider
  */
 function AppContent() {
   const authContext = useContext(AuthContext);
@@ -67,7 +66,6 @@ function AppContent() {
   const [showScreenTimeUp, setShowScreenTimeUp] = useState(false);
   const [showBadgeOverlay, setShowBadgeOverlay] = useState(null);
   const [showBadgesPanel, setShowBadgesPanel] = useState(false);
-  const [showBridgePrompt, setShowBridgePrompt] = useState(false);
   const [showSensoryMenu, setShowSensoryMenu] = useState(false);
 
   // Quest completion data
@@ -159,41 +157,34 @@ function AppContent() {
    * Handle quest completion
    */
   const handleQuestComplete = useCallback((result) => {
-    // Calculate stars based on correct answers
     const questStars = Math.max(1, Math.ceil((result.correct / result.total) * 3));
     const xpGained = result.xp || (result.correct * 10);
     const newTotalXp = totalXp + xpGained;
     const newLevel = Math.floor(newTotalXp / 50) + 1;
 
-    // Update biome stars
     const biomeId = selectedBiome?.id;
     const newBiomeStars = { ...biomeStars };
     newBiomeStars[biomeId] = Math.max(newBiomeStars[biomeId] || 0, questStars);
 
-    // Update all game state
     setStars(stars + questStars);
     setTotalXp(newTotalXp);
     setLevel(newLevel);
     setBiomeStars(newBiomeStars);
 
-    // Update biomes played
     const newBiomesPlayed = new Set(biomesPlayed);
     newBiomesPlayed.add(biomeId);
     setBiomesPlayed(newBiomesPlayed);
 
-    // Update harmony count if applicable
     if (biomeId === 'harmony') {
       setHarmonyCount(harmonyCount + 1);
     }
 
-    // Check for new badges
     const newBadges = checkNewBadges({
       questStars,
       xp: xpGained,
       maxStars: 3,
     });
 
-    // Update earned badges
     const updatedBadges = new Set(earnedBadges);
     newBadges.forEach((badge) => {
       updatedBadges.add(badge.id);
@@ -262,7 +253,6 @@ function AppContent() {
   const handleWelcomeLogin = () => setLoginMode('signin');
   const handleWelcomeRegister = () => setLoginMode('register');
   const handleWelcomeGuest = () => {
-    // Start guest onboarding - let the child enter their name and pick age group
     setScreen('onboarding');
     setOnboardStep(0);
   };
@@ -270,7 +260,6 @@ function AppContent() {
   const handleSignInSuccess = async (contact, pin) => {
     try {
       await authContext.login(contact, pin);
-      // After login, show profiles
       setLoginMode('profiles');
     } catch (err) {
       console.error('Sign in failed:', err);
@@ -280,24 +269,46 @@ function AppContent() {
   const handleRegisterSuccess = async (contact, pin) => {
     try {
       await authContext.register(contact, pin);
-      // After registration, go to onboarding
-      setScreen('onboarding');
-      setOnboardStep(0);
+      // After registration, go to profiles (which will show "add first child")
+      setLoginMode('profiles');
     } catch (err) {
       console.error('Registration failed:', err);
     }
   };
 
-  const handleProfileSelected = async (profile) => {
-    // Load the selected child profile
+  /**
+   * Profile selection: select existing child
+   */
+  const handleSelectChild = async (username, profile) => {
     if (gameContext?.loadChildProfile && authContext?.currentUser) {
-      await gameContext.loadChildProfile(authContext.currentUser.uid, profile.username);
-      setPlayerName(profile.playerName || 'Player');
-      setPhase(profile.phase || 'seedlings');
-      setCompanion(profile.companion);
-      setCompanionName(profile.companionName || 'Companion');
+      await gameContext.loadChildProfile(authContext.currentUser.uid, username);
+      setPlayerName(profile?.playerName || username);
+      setPhase(profile?.phase || 'seedlings');
+      setCompanion(profile?.companion || null);
+      setCompanionName(profile?.companionName || 'Companion');
       setScreen('treehouse');
     }
+  };
+
+  /**
+   * Profile selection: add new child → go to onboarding
+   */
+  const handleAddChild = () => {
+    setScreen('onboarding');
+    setOnboardStep(0);
+  };
+
+  /**
+   * Sign out
+   */
+  const handleSignOut = async () => {
+    try {
+      await authContext.logout();
+    } catch (err) {
+      console.error('Sign out failed:', err);
+    }
+    setLoginMode('welcome');
+    setScreen('login');
   };
 
   /**
@@ -319,23 +330,39 @@ function AppContent() {
     setOnboardStep(3);
   };
 
-  const handleOnboardingComplete = () => {
+  const handleOnboardingComplete = async () => {
+    // If parent is logged in, save the new child profile
+    if (authContext?.currentUser) {
+      try {
+        await dataService.saveChildProfile(authContext.currentUser.uid, playerName, {
+          playerName,
+          phase,
+          companion,
+          companionName,
+          stars: 0,
+          totalXp: 0,
+          level: 1,
+          biomesPlayed: [],
+          biomeStars: {},
+          harmonyCount: 0,
+          earnedBadges: [],
+          settings: {},
+        });
+      } catch (err) {
+        console.error('Error saving child profile:', err);
+      }
+    }
     setScreen('treehouse');
   };
 
   /**
-   * Quest flow handlers
+   * Quest flow handlers - single "Back to Treehouse" after quest complete + bridge prompt
    */
   const handleQuestStart = () => {
     setQuestPhase('playing');
   };
 
-  const handleQuestCompleteConfirm = () => {
-    setShowBridgePrompt(true);
-  };
-
-  const handleBridgePromptContinue = () => {
-    setShowBridgePrompt(false);
+  const handleBackToTreehouse = () => {
     setQuestPhase('preview');
     setScreen('treehouse');
   };
@@ -344,10 +371,14 @@ function AppContent() {
    * Treehouse handlers
    */
   const handleChangePlayer = () => {
-    // Reset game state and go back to login
     timer.stopTimer();
-    setScreen('login');
-    setLoginMode('profiles');
+    if (authContext?.currentUser) {
+      setScreen('login');
+      setLoginMode('profiles');
+    } else {
+      setScreen('login');
+      setLoginMode('welcome');
+    }
   };
 
   /**
@@ -390,8 +421,10 @@ function AppContent() {
     if (loginMode === 'profiles') {
       return (
         <ProfileSelector
-          onSelectProfile={handleProfileSelected}
-          onBack={() => setLoginMode('welcome')}
+          parentId={authContext?.currentUser?.uid}
+          onSelectChild={handleSelectChild}
+          onAddChild={handleAddChild}
+          onSignOut={handleSignOut}
           theme={currentTheme}
         />
       );
@@ -456,10 +489,7 @@ function AppContent() {
           }}
         >
           <button
-            onClick={() => {
-              setQuestPhase('preview');
-              setScreen('treehouse');
-            }}
+            onClick={handleBackToTreehouse}
             style={{
               background: 'none',
               border: 'none',
@@ -502,6 +532,7 @@ function AppContent() {
           <div>{renderGame()}</div>
         )}
 
+        {/* Quest Complete: merged with offline activity (single screen, one button) */}
         {questPhase === 'complete' && questResult && (
           <div style={{ padding: 24, textAlign: 'center' }}>
             <div style={{ fontSize: 64, marginBottom: 16 }}>🎉</div>
@@ -512,7 +543,7 @@ function AppContent() {
               background: 'white',
               borderRadius: 20,
               padding: 24,
-              marginBottom: 24,
+              marginBottom: 20,
               boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
             }}>
               <div style={{ fontSize: 22, color: '#555', marginBottom: 14, fontWeight: 600 }}>
@@ -525,9 +556,17 @@ function AppContent() {
                 +{questResult.xpGained} XP
               </div>
             </div>
+
+            {/* Offline activity embedded right in the complete screen */}
+            {selectedBiome && (
+              <BridgePrompt biomeId={selectedBiome.id} embedded={true} />
+            )}
+
+            {/* Single button: Back to Treehouse */}
             <button
-              onClick={handleQuestCompleteConfirm}
+              onClick={handleBackToTreehouse}
               style={{
+                marginTop: 16,
                 padding: '18px 56px',
                 borderRadius: 28,
                 border: 'none',
@@ -540,7 +579,7 @@ function AppContent() {
                 maxWidth: 340,
               }}
             >
-              Continue
+              Back to Treehouse
             </button>
           </div>
         )}
@@ -548,15 +587,6 @@ function AppContent() {
         {/* Overlays */}
         {showBreathingPause && (
           <BreathingPause onContinue={() => setShowBreathingPause(false)} />
-        )}
-
-        {showBridgePrompt && selectedBiome && (
-          <div style={{ padding: 20 }}>
-            <BridgePrompt
-              biomeId={selectedBiome.id}
-              onContinue={handleBridgePromptContinue}
-            />
-          </div>
         )}
 
         {showSensoryMenu && (
@@ -668,7 +698,7 @@ function AppContent() {
             marginTop: 20,
           }}
         >
-          GentleGrove v0.4
+          GentleGrove v0.5
         </div>
 
         {/* Screen Time Warning */}
@@ -737,7 +767,6 @@ function AppContent() {
 
 /**
  * Main App Component
- * Provides AuthProvider and GameProvider context to AppContent
  */
 function App() {
   return (
