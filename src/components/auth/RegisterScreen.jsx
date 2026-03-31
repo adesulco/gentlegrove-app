@@ -12,6 +12,8 @@ import React, { useState } from 'react';
 export default function RegisterScreen({ onRegister, onBack, error = "", theme = {} }) {
   const [contact, setContact] = useState("");
   const [pin, setPin] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [localError, setLocalError] = useState("");
 
   const themeDefaults = {
     accent: "#2B579A",
@@ -21,42 +23,63 @@ export default function RegisterScreen({ onRegister, onBack, error = "", theme =
 
   const inputStyle = {
     width: "100%",
-    padding: "14px 18px",
-    fontSize: 18,
-    borderRadius: 14,
+    padding: "16px 20px",
+    fontSize: 20,
+    borderRadius: 16,
     border: "3px solid #ddd",
     outline: "none",
     textAlign: "center",
-    marginBottom: 12
+    marginBottom: 14,
+    boxSizing: "border-box"
   };
 
   const btnPrimary = {
-    padding: "14px 48px",
-    borderRadius: 24,
+    padding: "16px 48px",
+    borderRadius: 28,
     border: "none",
-    background: themeDefaults.accent,
+    background: loading ? "#999" : themeDefaults.accent,
     color: "white",
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 700,
-    cursor: "pointer",
-    width: "100%"
+    cursor: loading ? "not-allowed" : "pointer",
+    width: "100%",
+    marginTop: 8,
+    transition: "all 0.2s ease"
   };
 
   const btnSecondary = {
     background: "none",
     border: "none",
-    fontSize: 15,
+    fontSize: 17,
     color: "#888",
     cursor: "pointer",
     textDecoration: "underline",
-    marginTop: 12
+    marginTop: 14,
+    padding: "8px 16px"
   };
 
-  const handleSubmit = () => {
-    if (contact.trim() && pin.length >= 4) {
-      onRegister(contact.trim(), pin);
+  const handleSubmit = async () => {
+    setLocalError("");
+    if (!contact.trim()) {
+      setLocalError("Please enter your email or mobile number");
+      return;
+    }
+    if (pin.length < 4) {
+      setLocalError("PIN must be at least 4 digits");
+      return;
+    }
+    setLoading(true);
+    try {
+      await onRegister(contact.trim(), pin);
+    } catch (err) {
+      // Error will be shown via the error prop from AuthContext
+      setLocalError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
+
+  const displayError = localError || error;
 
   return (
     <div
@@ -72,7 +95,7 @@ export default function RegisterScreen({ onRegister, onBack, error = "", theme =
     >
       <h2
         style={{
-          fontSize: 28,
+          fontSize: 30,
           color: themeDefaults.accent,
           margin: "0 0 8px 0"
         }}
@@ -82,23 +105,23 @@ export default function RegisterScreen({ onRegister, onBack, error = "", theme =
       <p
         style={{
           color: "#777",
-          fontSize: 15,
-          marginBottom: 24,
+          fontSize: 17,
+          marginBottom: 28,
           textAlign: "center",
-          maxWidth: 300
+          maxWidth: 340
         }}
       >
         Parents create the account. Kids play with their own profile!
       </p>
 
-      <div style={{ width: "100%", maxWidth: 340 }}>
+      <div style={{ width: "100%", maxWidth: 380 }}>
         <label
           style={{
             display: "block",
-            fontSize: 15,
+            fontSize: 17,
             fontWeight: 600,
             color: "#555",
-            marginBottom: 6
+            marginBottom: 8
           }}
         >
           Email or Mobile Number
@@ -110,47 +133,55 @@ export default function RegisterScreen({ onRegister, onBack, error = "", theme =
           placeholder="parent@email.com or +1234567890"
           style={inputStyle}
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+          disabled={loading}
         />
 
         <label
           style={{
             display: "block",
-            fontSize: 15,
+            fontSize: 17,
             fontWeight: 600,
             color: "#555",
-            marginBottom: 6
+            marginBottom: 8
           }}
         >
           Create a PIN (4+ digits)
         </label>
         <input
-          type="text"
+          type="password"
+          inputMode="numeric"
           value={pin}
-          onChange={(e) => setPin(e.target.value)}
+          onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))}
           placeholder="e.g. 1234"
           style={inputStyle}
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+          maxLength={8}
+          disabled={loading}
         />
 
-        {error && (
+        {displayError && (
           <div
             style={{
               color: "#C62828",
-              fontSize: 14,
-              marginBottom: 10,
-              textAlign: "center"
+              fontSize: 16,
+              marginBottom: 12,
+              textAlign: "center",
+              background: "#FFEBEE",
+              padding: "10px 14px",
+              borderRadius: 12,
+              fontWeight: 500
             }}
           >
-            {error}
+            {displayError}
           </div>
         )}
 
-        <button onClick={handleSubmit} style={btnPrimary}>
-          Create Account
+        <button onClick={handleSubmit} style={btnPrimary} disabled={loading}>
+          {loading ? "Creating Account..." : "Create Account"}
         </button>
 
         <div style={{ textAlign: "center" }}>
-          <button onClick={onBack} style={btnSecondary}>
+          <button onClick={onBack} style={btnSecondary} disabled={loading}>
             Back
           </button>
         </div>
